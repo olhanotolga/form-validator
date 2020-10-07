@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Form validator</title>
+	<style>
+		.invalid {
+			color: red;
+		}
+
+		.valid {
+			color: green;
+		}
+	</style>
+
+</head>
+
+<body>
+	<h1>Form validator</h1>
+	<form>
+		<label for="username">Username</label>
+		<input type="text" id="username" />
+		<br>
+		<label for="password">Password</label>
+		<input type="password" id="password" />
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+	<section>
+		<h2>Password requirements</h2>
+		<ul>
+			<li id="lowercase" class="invalid">A <b>lowercase</b> letter</li>
+			<li id="uppercase" class="invalid">A <b>capital (uppercase)</b> letter</li>
+			<li id="number" class="invalid">A <b>number</b></li>
+			<li id="minChars" class="invalid">Minimum <b>8 characters</b></li>
+		</ul>
+	</section>
+
+</body>
+<script src="./index.js" ></script>
+
+</html>
