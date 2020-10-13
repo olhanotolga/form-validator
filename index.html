@@ -5,27 +5,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Form validator</title>
-	<style>
-		.invalid {
-			color: red;
-		}
-
-		.valid {
-			color: green;
-		}
-	</style>
-
+	<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 	<h1>Form validator</h1>
 	<form>
-		<label for="username">Username</label>
-		<input type="text" id="username" />
-		<br>
-		<label for="password">Password</label>
-		<input type="password" id="password" />
-		<br>
+		<div>
+			<label for="username">Username</label>
+			<input type="text" id="username" />
+		</div>
+		
+		<div>
+			<label for="email">Email</label>
+			<input type="email" id="email" />
+		</div>
+		
+		<div>
+			<label for="password">Password</label>
+			<input type="password" id="password" />
+		</div>
+		
 		<button type="submit">Submit</button>
 	</form>
 	<section>
@@ -35,6 +35,14 @@
 			<li id="uppercase" class="invalid">A <b>capital (uppercase)</b> letter</li>
 			<li id="number" class="invalid">A <b>number</b></li>
 			<li id="minChars" class="invalid">Minimum <b>8 characters</b></li>
+		</ul>
+	</section>
+	<section>
+		<h2>Email address requirements</h2>
+		<ul>
+			<li id="at-character" class="invalid">An <b>&commat;</b> character</li>
+			<li id="dot-character" class="invalid">A <b>dot (.)</b> character</li>
+			<li id="min-email-chars" class="invalid">Minimum <b>6 characters</b></li>
 		</ul>
 	</section>
 
@@ -88,6 +96,56 @@
 				minCharsElement.classList.remove("valid");
 			}
 		};
+
+		const email = document.getElementById("email");
+
+		email.onkeyup = function validateEmail() {
+			console.log("character typed: ", email.value);
+
+			// patterns
+			// const commAtChar = String.fromCharCode(64);
+			const commAtChar = "@";
+			console.log(commAtChar, typeof commAtChar);
+			const dotChar = ".";
+
+			const atCharElement = document.getElementById("at-character");
+			const dotCharElement = document.getElementById("dot-character");
+			const minCharsEmailElement = document.getElementById("min-email-chars");
+
+			if (email.value.includes(commAtChar)) {
+				console.log(password.value, commAtChar, "includes @:", password.value.includes(commAtChar));
+
+				atCharElement.classList.remove("invalid");
+				atCharElement.classList.add("valid");
+			} else {
+				console.log(password.value, "includes @:", password.value.includes(commAtChar));
+
+				atCharElement.classList.add("invalid");
+				atCharElement.classList.remove("valid");
+			}
+
+			// at least 2 characters before @
+
+			if (email.value.includes(dotChar)) {
+				dotCharElement.classList.remove("invalid");
+				dotCharElement.classList.add("valid");
+			} else {
+				dotCharElement.classList.add("invalid");
+				dotCharElement.classList.remove("valid");
+			}
+
+			// . is after the @ character
+
+			if (email.value.length >= 6) {
+				minCharsEmailElement.classList.remove("invalid");
+				minCharsEmailElement.classList.add("valid");
+			} else {
+				minCharsEmailElement.classList.add("invalid");
+				minCharsEmailElement.classList.remove("valid");
+			}
+
+		};
+
 	</script>
 
 </body>
