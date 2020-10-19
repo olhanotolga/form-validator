@@ -5,29 +5,38 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Form validator</title>
-	<style>
-		.invalid {
-			color: red;
-		}
-
-		.valid {
-			color: green;
-		}
-	</style>
-
+	<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 	<h1>Form validator</h1>
 	<form>
+
 		<label for="username">Username</label>
 		<input type="text" id="username" />
-		<br>
+
+		<label for="email">Email</label>
+		<input type="email" id="email" />
+
 		<label for="password">Password</label>
 		<input type="password" id="password" />
-		<br>
+		
 		<button type="submit">Submit</button>
 	</form>
+	<section>
+		<h2>Email address requirements</h2>
+		<ul>
+			<li id="commat-char" class="invalid">A <b>&commat;</b> character</li>
+			<li id="two-before-commat" class="invalid"><b>At least 2</b> characters <b>before &commat;</b></li>
+			<li id="two-after-commat" class="invalid"><b>At least 2</b> characters <b>after &commat;</b></li>
+			<li id="one-commat" class="invalid"><b>No more</b> than <b>one &commat;</b> character</li>
+			<li id="dot-char" class="invalid">A <b>dot (.)</b> character</li>
+			<li id="max-three-dots" class="invalid"><b>Maximum 3</b> dot (.) characters</li>
+			<li id="no-two-dots-together" class="invalid">A dot (.) is <b>not followed</b> by another dot (.)</li>
+			<li id="no-dot-and-commat-together" class="invalid">A dot (.) and &commat; are <b>not next to</b> each other</li>
+			<li id="min-email-chars" class="invalid">Minimum <b>6 characters</b></li>
+		</ul>
+	</section>
 	<section>
 		<h2>Password requirements</h2>
 		<ul>
@@ -38,57 +47,7 @@
 		</ul>
 	</section>
 
-	<script type="text/javascript">
-		const password = document.getElementById("password");
-		console.log("working!");
-
-		password.onkeyup = function validatePassword() {
-			console.log("letter typed: ", password.value);
-
-			// regular expressions
-			const lowercaseLetterPattern = /[a-z]/;
-			const uppercaseLetterPattern = /[A-Z]/;
-			const numbersPattern = /[0-9]/;
-			// const minCharactersPattern = /.{8}/;
-
-			const lowercaseElement = document.getElementById("lowercase");
-			const uppercaseElement = document.getElementById("uppercase");
-			const numberElement = document.getElementById("number");
-			const minCharsElement = document.getElementById("minChars");
-
-			if (lowercaseLetterPattern.test(password.value)) {
-				lowercaseElement.classList.remove("invalid");
-				lowercaseElement.classList.add("valid");
-			} else {
-				lowercaseElement.classList.add("invalid");
-				lowercaseElement.classList.remove("valid");
-			}
-
-			if (uppercaseLetterPattern.test(password.value)) {
-				uppercaseElement.classList.remove("invalid");
-				uppercaseElement.classList.add("valid");
-			} else {
-				uppercaseElement.classList.add("invalid");
-				uppercaseElement.classList.remove("valid");
-			}
-
-			if (numbersPattern.test(password.value)) {
-				numberElement.classList.remove("invalid");
-				numberElement.classList.add("valid");
-			} else {
-				numberElement.classList.add("invalid");
-				numberElement.classList.remove("valid");
-			}
-
-			if (password.value.length >= 8) {
-				minCharsElement.classList.remove("invalid");
-				minCharsElement.classList.add("valid");
-			} else {
-				minCharsElement.classList.add("invalid");
-				minCharsElement.classList.remove("valid");
-			}
-		};
-	</script>
+	<script type="text/javascript" src="./main.js"></script>
 
 </body>
 
