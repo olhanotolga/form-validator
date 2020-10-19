@@ -73,4 +73,7 @@ ul {
 	section {
 		grid-column: span 1;
 	}
+	input {
+		max-width: 500px;
+	}
 }
