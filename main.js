@@ -63,7 +63,7 @@ email.onkeyup = function validateEmail() {
 	const twoCharsBeforeCommatPattern = /^.{2,}@/;
 	const twoCharsAfterCommatPattern = /@.{2,}/;
 	const dotCharPattern = /\./g;
-	const noDotCommatTogetherPattern = /[^.]@[^.]/g;
+	const noDotCommatTogetherPattern = /[^\.]@[^\.]/;
 	const twoDotsTogetherPattern = /\.\./g;
 
 	// DOM elements — list items:
@@ -121,7 +121,7 @@ email.onkeyup = function validateEmail() {
 		reset(noTwoDotsTogetherItem);
 	}
 	// 8 — no dot and @ next to each other
-	if (commatCharPattern.test(email.value) && dotCharPattern.test(email.value) && noDotCommatTogetherPattern.test(email.value)) {
+	if (noDotCommatTogetherPattern.test(email.value)) {
 		showSuccess(noDotCommatTogetherItem);
 	} else {
 		reset(noDotCommatTogetherItem);
