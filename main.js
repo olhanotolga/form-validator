@@ -1,5 +1,18 @@
 const password = document.getElementById("password");
+const email = document.getElementById("email");
+
 console.log("working!");
+
+const showSuccess = (element) => {
+	element.classList.remove("invalid");
+    element.classList.add("valid");
+}
+const reset = (element) => {
+	element.classList.remove("valid");
+    element.classList.add("invalid");
+}
+
+// VALIDATE PASSWORD
 
 password.onkeyup = function validatePassword() {
     console.log("letter typed: ", password.value);
@@ -8,7 +21,6 @@ password.onkeyup = function validatePassword() {
     const lowercaseLetterPattern = /[a-z]/;
     const uppercaseLetterPattern = /[A-Z]/;
     const numbersPattern = /[0-9]/;
-    // const minCharactersPattern = /.{8}/;
 
     const lowercaseElement = document.getElementById("lowercase");
     const uppercaseElement = document.getElementById("uppercase");
@@ -16,91 +28,108 @@ password.onkeyup = function validatePassword() {
     const minCharsElement = document.getElementById("minChars");
 
     if (lowercaseLetterPattern.test(password.value)) {
-        lowercaseElement.classList.remove("invalid");
-        lowercaseElement.classList.add("valid");
+		showSuccess(lowercaseElement);
     } else {
-        lowercaseElement.classList.add("invalid");
-        lowercaseElement.classList.remove("valid");
+        reset(lowercaseElement);
     }
 
     if (uppercaseLetterPattern.test(password.value)) {
-        uppercaseElement.classList.remove("invalid");
-        uppercaseElement.classList.add("valid");
+        showSuccess(uppercaseElement);
     } else {
-        uppercaseElement.classList.add("invalid");
-        uppercaseElement.classList.remove("valid");
+		reset(uppercaseElement);
     }
 
     if (numbersPattern.test(password.value)) {
-        numberElement.classList.remove("invalid");
-        numberElement.classList.add("valid");
+        showSuccess(numberElement);
     } else {
-        numberElement.classList.add("invalid");
-        numberElement.classList.remove("valid");
+        reset(numberElement);
     }
 
     if (password.value.length >= 8) {
-        minCharsElement.classList.remove("invalid");
-        minCharsElement.classList.add("valid");
+        showSuccess(minCharsElement);
     } else {
-        minCharsElement.classList.add("invalid");
-        minCharsElement.classList.remove("valid");
+        reset(minCharsElement);
     }
 };
 
-const email = document.getElementById("email");
+// VALIDATE EMAIL
 
 email.onkeyup = function validateEmail() {
     console.log("character typed: ", email.value);
 
     // patterns
-    // const commAtChar = String.fromCharCode(64);
-    const commAtChar = "@";
-    console.log(commAtChar, typeof commAtChar);
-    const dotChar = ".";
+	// const emailPattern = /^.{1,}[^\.@]@[^\.@]{2,}\.{1}.{1,}/;
+	const commatCharPattern = /@/g;
+	const twoCharsBeforeCommatPattern = /^.{2,}@/;
+	const twoCharsAfterCommatPattern = /@.{2,}/;
+	const dotCharPattern = /\./g;
+	const noDotCommatTogetherPattern = /[^.]@[^.]/g;
+	const twoDotsTogetherPattern = /\.\./g;
 
-    const atCharElement = document.getElementById("at-character");
-    const dotCharElement = document.getElementById("dot-character");
-    const minCharsEmailElement = document.getElementById("min-email-chars");
+	// DOM elements — list items:
+	const commatCharItem = document.getElementById("commat-char");
+	const twoCharsBeforeCommatItem = document.getElementById("two-before-commat");
+	const twoCharsAfterCommatItem = document.getElementById("two-after-commat");
+	const oneCommatItem = document.getElementById("one-commat");
+	const dotCharItem = document.getElementById("dot-char");
+	const maxThreeDotsItem = document.getElementById("max-three-dots");
+	const noTwoDotsTogetherItem = document.getElementById("no-two-dots-together");
+	const noDotCommatTogetherItem = document.getElementById("no-dot-and-commat-together");
+    const minCharsEmailItem = document.getElementById("min-email-chars");
 
-    if (email.value.includes(commAtChar)) {
-        console.log(
-            password.value,
-            commAtChar,
-            "includes @:",
-            password.value.includes(commAtChar)
-        );
-
-        atCharElement.classList.remove("invalid");
-        atCharElement.classList.add("valid");
-    } else {
-        console.log(
-            password.value,
-            "includes @:",
-            password.value.includes(commAtChar)
-        );
-
-        atCharElement.classList.add("invalid");
-        atCharElement.classList.remove("valid");
-    }
-
-    // at least 2 characters before @
-
-    if (email.value.includes(dotChar)) {
-        dotCharElement.classList.remove("invalid");
-        dotCharElement.classList.add("valid");
-    } else {
-        dotCharElement.classList.add("invalid");
-        dotCharElement.classList.remove("valid");
-    }
-
-    // . is after the @ character
-
+	// conditions:
+	// 1 — a @ character
+	if (commatCharPattern.test(email.value)) {
+		showSuccess(commatCharItem);
+	} else {
+		reset(commatCharItem);
+	}
+	// 2 — 2 characters before @
+	if (twoCharsBeforeCommatPattern.test(email.value)) {
+		showSuccess(twoCharsBeforeCommatItem);
+	} else {
+		reset(twoCharsBeforeCommatItem);
+	}
+	// 3 — 2 characters after @
+	if (twoCharsAfterCommatPattern.test(email.value)) {
+		showSuccess(twoCharsAfterCommatItem);
+	} else {
+		reset(twoCharsAfterCommatItem);
+	}
+	// 4 — no more than one @ character
+	if (email.value.match(commatCharPattern) && email.value.match(commatCharPattern).length === 1) {
+		showSuccess(oneCommatItem);
+	} else {
+		reset(oneCommatItem);
+	}
+	// 5 — a dot character
+	if (dotCharPattern.test(email.value)) {
+		showSuccess(dotCharItem);
+	} else {
+		reset(dotCharItem);
+	}
+	// 6 — maximum 3 dots
+	if (email.value.match(dotCharPattern) && email.value.match(dotCharPattern).length > 0 && email.value.match(dotCharPattern).length <= 3) {
+		showSuccess(maxThreeDotsItem);
+	} else {
+		reset(maxThreeDotsItem);
+	}
+	// 7 — no 2 dots next to each other
+	if (dotCharPattern.test(email.value) && !twoDotsTogetherPattern.test(email.value)) {
+		showSuccess(noTwoDotsTogetherItem);
+	} else {
+		reset(noTwoDotsTogetherItem);
+	}
+	// 8 — no dot and @ next to each other
+	if (commatCharPattern.test(email.value) && dotCharPattern.test(email.value) && noDotCommatTogetherPattern.test(email.value)) {
+		showSuccess(noDotCommatTogetherItem);
+	} else {
+		reset(noDotCommatTogetherItem);
+	}
+	// 9 — minimum 6 characters
     if (email.value.length >= 6) {
-        minCharsEmailElement.classList.remove("invalid");
-        minCharsEmailElement.classList.add("valid");
+        showSuccess(minCharsEmailItem);
     } else {
-        minCharsEmailElement.classList.add("invalid");
-        minCharsEmailElement.classList.remove("valid");
+        reset(minCharsEmailItem);
     }
 };

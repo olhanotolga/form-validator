@@ -11,23 +11,32 @@
 <body>
 	<h1>Form validator</h1>
 	<form>
-		<div>
-			<label for="username">Username</label>
-			<input type="text" id="username" />
-		</div>
-		
-		<div>
-			<label for="email">Email</label>
-			<input type="email" id="email" />
-		</div>
-		
-		<div>
-			<label for="password">Password</label>
-			<input type="password" id="password" />
-		</div>
+
+		<label for="username">Username</label>
+		<input type="text" id="username" />
+
+		<label for="email">Email</label>
+		<input type="email" id="email" />
+
+		<label for="password">Password</label>
+		<input type="password" id="password" />
 		
 		<button type="submit">Submit</button>
 	</form>
+	<section>
+		<h2>Email address requirements</h2>
+		<ul>
+			<li id="commat-char" class="invalid">A <b>&commat;</b> character</li>
+			<li id="two-before-commat" class="invalid"><b>At least 2</b> characters <b>before &commat;</b></li>
+			<li id="two-after-commat" class="invalid"><b>At least 2</b> characters <b>after &commat;</b></li>
+			<li id="one-commat" class="invalid"><b>No more</b> than <b>one &commat;</b> character</li>
+			<li id="dot-char" class="invalid">A <b>dot (.)</b> character</li>
+			<li id="max-three-dots" class="invalid"><b>Maximum 3</b> dot (.) characters</li>
+			<li id="no-two-dots-together" class="invalid">A dot (.) is <b>not followed</b> by another dot (.)</li>
+			<li id="no-dot-and-commat-together" class="invalid">A dot (.) and &commat; are <b>not next to</b> each other</li>
+			<li id="min-email-chars" class="invalid">Minimum <b>6 characters</b></li>
+		</ul>
+	</section>
 	<section>
 		<h2>Password requirements</h2>
 		<ul>
@@ -35,14 +44,6 @@
 			<li id="uppercase" class="invalid">A <b>capital (uppercase)</b> letter</li>
 			<li id="number" class="invalid">A <b>number</b></li>
 			<li id="minChars" class="invalid">Minimum <b>8 characters</b></li>
-		</ul>
-	</section>
-	<section>
-		<h2>Email address requirements</h2>
-		<ul>
-			<li id="at-character" class="invalid">An <b>&commat;</b> character</li>
-			<li id="dot-character" class="invalid">A <b>dot (.)</b> character</li>
-			<li id="min-email-chars" class="invalid">Minimum <b>6 characters</b></li>
 		</ul>
 	</section>
 
