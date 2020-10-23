@@ -20,7 +20,6 @@ let isPasswordValid = false;
 let isCardValid = false;
 
 // VALIDATE PASSWORD
-
 password.onkeyup = function validatePassword() {
     console.log("letter typed: ", password.value);
 
