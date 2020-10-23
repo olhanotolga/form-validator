@@ -63,11 +63,13 @@ password.onkeyup = function validatePassword() {
 	}
 	
 	// if all elements have the class "valid", isPasswordValid = true;
-	isPasswordValid = passwordValidationList.forEach(item => {
-		if(item.className === "invalid") {
+	passwordValidationList.forEach(item => {
+		if (item.className === "invalid") {
 			console.log(false);
-			return false;
+			isPasswordValid = false;
+			return;
 		}
+		isPasswordValid = true;
 	})
 
 	activateSubmitButton();
@@ -158,11 +160,13 @@ email.onkeyup = function validateEmail() {
 	}
 	
 	// if all elements have the class "valid", isEmailValid = true;
-	isEmailValid = emailValidationList.forEach(item => {
-		if(item.className === "invalid") {
+	emailValidationList.forEach(item => {
+		if (item.className === "invalid") {
 			console.log(false);
-			return false;
+			isEmailValid = false;
+			return;
 		}
+		isEmailValid = true;
 	})
 
 	activateSubmitButton();
@@ -246,22 +250,25 @@ cardNumber.onkeyup = function validateCardNumber() {
 	}
 
 	// if all elements have the class "valid", isCardValid = true;
-	isCardValid = cardValidationList.forEach(item => {
-		if(item.className === "invalid") {
+	cardValidationList.forEach(item => {
+		if (item.className === "invalid") {
 			console.log(false);
-			return false;
+			isCardValid = false;
+			return;
 		}
+		isCardValid = true;
 	})
 
 	activateSubmitButton();
 }
 
-console.log(isEmailValid);
-console.log(isCardValid);
-console.log(isPasswordValid);
 
 
 function activateSubmitButton() {
+	console.log(isEmailValid);
+	console.log(isCardValid);
+	console.log(isPasswordValid);
+	
 	if (isEmailValid === true && isPasswordValid === true && isCardValid === true) {
 		console.log("all true?", isEmailValid === true && isPasswordValid === true && isCardValid === true);
 		submitButton.removeAttribute("disabled");
