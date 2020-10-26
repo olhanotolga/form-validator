@@ -200,7 +200,9 @@ cardNumber.onkeyup = function validateCardNumber() {
 		console.log(cardNumberArray);
 
 		// ? Multiply the digits in odd positions (1, 3, 5, etc.) by 2
-		cardNumberArray = cardNumberArray.map(el => Number(el) % 2 !== 0 ? el * 2 : Number(el) );
+		//TODO combine this with the next one
+
+		cardNumberArray = cardNumberArray.map((el, index) => index % 2 !== 0 ? el * 2 : Number(el) );
 		console.log(cardNumberArray);
 
 		// ? Subtract 9 to all any result higher than 9
