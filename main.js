@@ -186,6 +186,7 @@ cardNumber.onkeyup = function validateCardNumber() {
 	const cardValidStartEl = document.getElementById("card-valid-start");
 	const luhnFormulaEl = document.getElementById("card-luhn-formula");
 
+	
 	const luhnFormulaResult = cardNumberToCheck => {
 		console.log("card number:", cardNumberToCheck);
 		
@@ -201,20 +202,19 @@ cardNumber.onkeyup = function validateCardNumber() {
 		console.log("reversed card number turned into an array:", cardNumberArray);
 
 		// ? Multiply the digits in odd positions (1st, 3rd, 5th, etc.) by 2 AND subtract 9 from all numbers greater than 9
-		//TODO combine this with the next one
+		// 4556737586899855
+		// 2720990720708442
+		// 5569267539920683
 
-		cardNumberArray = cardNumberArray.map((el, index) => index % 2 === 0 ? el * 2 : Number(el) );
-		console.log("numbers in odd positions multiplied by 2:", cardNumberArray);
-
-		cardNumberArray = cardNumberArray.map(el => el > 9 ? el -= 9 : el);
-		console.log("numbers > 9 have 9 subtracted from them:", cardNumberArray);
+		cardNumberArray = cardNumberArray.map((el, index) => (index % 2 === 0) ? ((el * 2 > 9) ? (el * 2 - 9) : (el * 2)) : Number(el) );
+		console.log("numbers in odd positions multiplied by 2 and reduced by 9 if they are greater than 9:", cardNumberArray);
 
 		// ? Add all the numbers together
 		let reducedArr = cardNumberArray.reduce((acc, curr) => acc + curr, 0);
 		console.log("the sum of all numbers:", reducedArr);
 
 		// ? The check digit (the last number of the card) is the amount that you would need to add to get a multiple of 10 (Modulo 10)
-		let luhnResult = Number(lastDigit) === reducedArr % 10;
+		let luhnResult = (Number(lastDigit) + reducedArr) % 10 === 0;
 		console.log("Luhn result:", luhnResult);
 
 		return luhnResult;
