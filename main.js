@@ -187,35 +187,35 @@ cardNumber.onkeyup = function validateCardNumber() {
 	const luhnFormulaEl = document.getElementById("card-luhn-formula");
 
 	const luhnFormulaResult = cardNumberToCheck => {
+		console.log("card number:", cardNumberToCheck);
 		
 		// ? Drop the last digit from the number. The last digit is what we want to check against
 		const lastDigit = cardNumberToCheck.slice(cardNumberToCheck.length - 1);
-		console.log(lastDigit);
+		console.log("last digit:", lastDigit);
 		
 		let manipulatedNumber = cardNumberToCheck.slice(0, cardNumberToCheck.length - 1);
-		console.log(manipulatedNumber);
+		console.log("card number without the last digit:", manipulatedNumber);
 
 		// ? Reverse the numbers
 		let cardNumberArray = manipulatedNumber.split("").reverse();
-		console.log(cardNumberArray);
+		console.log("reversed card number turned into an array:", cardNumberArray);
 
-		// ? Multiply the digits in odd positions (1, 3, 5, etc.) by 2
+		// ? Multiply the digits in odd positions (1st, 3rd, 5th, etc.) by 2 AND subtract 9 from all numbers greater than 9
 		//TODO combine this with the next one
 
-		cardNumberArray = cardNumberArray.map((el, index) => index % 2 !== 0 ? el * 2 : Number(el) );
-		console.log(cardNumberArray);
+		cardNumberArray = cardNumberArray.map((el, index) => index % 2 === 0 ? el * 2 : Number(el) );
+		console.log("numbers in odd positions multiplied by 2:", cardNumberArray);
 
-		// ? Subtract 9 to all any result higher than 9
 		cardNumberArray = cardNumberArray.map(el => el > 9 ? el -= 9 : el);
-		console.log(cardNumberArray);
+		console.log("numbers > 9 have 9 subtracted from them:", cardNumberArray);
 
 		// ? Add all the numbers together
 		let reducedArr = cardNumberArray.reduce((acc, curr) => acc + curr, 0);
-		console.log(reducedArr);
+		console.log("the sum of all numbers:", reducedArr);
 
 		// ? The check digit (the last number of the card) is the amount that you would need to add to get a multiple of 10 (Modulo 10)
 		let luhnResult = Number(lastDigit) === reducedArr % 10;
-		console.log(luhnResult);
+		console.log("Luhn result:", luhnResult);
 
 		return luhnResult;
 	}

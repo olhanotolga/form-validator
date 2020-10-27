@@ -43,8 +43,18 @@ button {
 	border-radius: 0.3rem;
 	box-shadow: 1px 2px #485f18;
 }
+button:hover {
+	background-color: #485f18;
+	box-shadow: 1px 2px olivedrab;
+
+}
 button:active {
 	box-shadow: none;
+	box-shadow: 1px 2px olivedrab;
+}
+button:disabled {
+	background-color: burlywood;
+	box-shadow: 1px 2px #d2691e59;
 }
 section {
 	grid-column: span 2;
